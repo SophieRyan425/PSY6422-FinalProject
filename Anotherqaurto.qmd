@@ -1,11 +1,23 @@
 ---
-title: "Another quarto document"
+title: "PSY6422-FinalProject"
 format: html
 editor: visual
 ---
 
-## Another Quarto Document
+# Death rates from Alzeimer's disease and other forms of dementia's across Europe from 2000-2021
 
-This is a new Quarto document that people will be able to link to from my home page
+#### Sophie Ryan
 
-#where the actual code will be
+##### 04/12/25
+
+## Background and Data Origins
+
+As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from alzeimers disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzeimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, combining men and women.
+
+A link to the data set can be accessed [Here](https://ourworldindata.org/grapher/death-rate-from-alzheimers-other-dementias-ghe?tab=table)
+
+My visualisation will focus on answering whether there has been an increase in deaths from Alzheimer’s disease and other dementia's across Europe from the year 2000-2021 and whether one specific country has a higher death rate than others due these neurodegenerative diseases.
+
+> **Research Question:** *"How have death rates from Alzeimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"*
+
+## The Project 
