@@ -24,17 +24,19 @@ My visualisation will focus on answering whether there has been an increase in d
 
 #### Data Preparation:
 
-```{r}
-#Install packages for data cleaning 
-#|include: FALSE
-install.packages("tidyverse")
-install.packages("here")
+Before starting any data preparation the packages needing to be installed and loaded are `tidyverse` and `here`
 
+```{r}
+#| include: FALSE
 library(here)
 library(tidyverse)
 ```
 
+Now I am loading in the raw data set before I can begin cleaning and organising.
+
 ```{r}
+#| results: 'hide'
+#| message: FALSE
 #Loading raw data into R
 read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
 ```
