@@ -38,5 +38,7 @@ Now I am loading in the raw data set before I can begin cleaning and organising.
 #| results: 'hide'
 #| message: FALSE
 #Loading raw data into R
-read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
+raw_alzheimers_data<-read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
 ```
+
+First 10 rows of Alzeimers deaths data set
