@@ -21,3 +21,5 @@ My visualisation will focus on answering whether there has been an increase in d
 > **Research Question:** *"How have death rates from Alzeimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"*
 
 ## The Project
+
+#### Data Preparation:
