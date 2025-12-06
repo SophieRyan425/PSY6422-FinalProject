@@ -32,13 +32,65 @@ library(here)
 library(tidyverse)
 ```
 
-Now I am loading in the raw data set before I can begin cleaning and organising.
+Loading in the raw data set before I can begin cleaning and organising.
 
 ```{r}
 #| results: 'hide'
 #| message: FALSE
 #Loading raw data into R
-raw_alzheimers_data<-read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
+read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
+
+#Reading dataset into a dataframe
+df<-read.csv("death-rate-from-alzheimers-other-dementias-ghe.csv")
+
 ```
 
-First 10 rows of Alzeimers deaths data set
+Showing the first 10 rows of the raw data.
+
+```{r}
+#| include: FALSE
+head(df,10)
+
+```
+
+#### Data Cleaning 
+
+The current raw data includes death rates from Alzheimers and other dementia's across every country in the world. I want to focus just on countries in Europe. Therefore I am going to remove the rows that are irrelevant to my analysis and save a new data set with just the death rates from Alzheimer's and other dementia's across Europe from 2000-2021.
+
+```{r}
+#1. Define a vector of European countries to give me something to reduce my raw data based upon 
+
+european_countries<- c(
+  "Albania", "Andorra", "Armenia", "Austria", "Azerbaijan", 
+  "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", 
+  "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland",
+  "France", "Georgia", "Germany", "Greece", "Hungary", "Iceland", 
+  "Ireland", "Italy", "Kazakhstan", "Latvia", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine",
+  "United Kingdom" 
+)
+
+
+#2. Filter the data frame 
+#Use the command filter to keep all rows where the value in the "Entity" column is also present in the 'european_countries' vector that was created
+
+europe_alzheimers_df<-df %>%
+  filter(Entity %in% european_countries)
+
+
+#3. Displaying first few rows of the new data frame 
+
+print(head(europe_alzheimers_df))
+
+
+#4. Counting the number of rows in the original date frame and the new data frame to check that the intended rows were removed 
+
+print(paste("Original rows:", nrow(df)))
+print(paste("European rows:", nrow(europe_alzheimers_df)))
+
+
+#5. Saving the new data set with just European countries in it 
+write.csv(europe_alzheimers_df, "european_alzeimers_deaths.csv", row.names = FALSE)
+
+
+
+```
