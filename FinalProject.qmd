@@ -53,7 +53,7 @@ head(df,10)
 
 ```
 
-#### Data Cleaning 
+#### Data Cleaning
 
 The current raw data includes death rates from Alzheimers and other dementia's across every country in the world. I want to focus just on countries in Europe. Therefore I am going to remove the rows that are irrelevant to my analysis and save a new data set with just the death rates from Alzheimer's and other dementia's across Europe from 2000-2021.
 
