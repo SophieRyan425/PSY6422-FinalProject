@@ -9,5 +9,3 @@ editor: visual
 ## Overview
 
 The primary inspiration for this project was to understand how neurodegenerative disorders are affecting the human population and if they are increasing or decreasing in prevalence. Upon further research into available databases this was narrowed down to the specific issue of Alzeimer's disease. Upon finding a specific data set on deaths as a result from this disease i came to the conclusion of answering the following question "How have death rates from Alzeimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"
-
-To access my project answering this question click
