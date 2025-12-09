@@ -31,6 +31,7 @@ Before starting any data preparation the packages needing to be installed and lo
 library(here)
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 ```
 
 Loading in the raw data set before I can begin cleaning and organising.
@@ -104,4 +105,16 @@ europe_alzheimers_deaths<- europe_alzheimers_df %>%
 #8 Viewing final clean data set 
 view(europe_alzheimers_deaths)
 
+```
+
+#### Data visualisation 1 
+
+```{r}
+ggplot(europe_alzheimers_deaths, aes(x = Year, y = DeathRate, colour = Country, group = Country)) +
+  geom_line() +
+  labs (title = "Alzeimers deaths by European country from 2000-2021",
+  x = "Year",
+  y = "Number of Deaths",
+  colour = "Country") +
+  theme_minimal()
 ```
