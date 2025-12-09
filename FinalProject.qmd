@@ -30,6 +30,7 @@ Before starting any data preparation the packages needing to be installed and lo
 #| include: FALSE
 library(here)
 library(tidyverse)
+library(dplyr)
 ```
 
 Loading in the raw data set before I can begin cleaning and organising.
@@ -92,5 +93,15 @@ print(paste("European rows:", nrow(europe_alzheimers_df)))
 write.csv(europe_alzheimers_df, "european_alzeimers_deaths.csv", row.names = FALSE)
 
 
+#6 Viewing the new clean data set 
+view(europe_alzheimers_df)
+
+#7 Renaming columns 
+europe_alzheimers_deaths<- europe_alzheimers_df %>%
+  rename(Country = Entity,
+         DeathRate = Death.rate.from.alzheimer.disease.and.other.dementias.among.both.sexes)
+
+#8 Viewing final clean data set 
+view(europe_alzheimers_deaths)
 
 ```
