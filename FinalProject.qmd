@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-# Death rates from Alzeimer's disease and other forms of dementia's across Europe from 2000-2021.
+# Death rates from Alzheimer's disease and other forms of dementia's across Europe from 2000-2021.
 
 #### Sophie Ryan
 
