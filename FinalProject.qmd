@@ -164,3 +164,49 @@ alzheimer_plot<- ggplot(
 
 print(alzheimer_plot)
 ```
+
+This graph is better in terms of visual appearance and labels and includes much more detail, but the legend is too big and the graph is squished so its still unclear.
+
+```{r}
+alzheimer_plot<- ggplot(
+  data = europe_alzheimers_deaths,
+  aes(
+    x = Year,
+    y = DeathRate,
+    group = Country,
+    colour = Country 
+  )
+) +
+  geom_line(
+    linewidth = 0.8,
+    alpha = 0.8 
+  ) +
+  geom_point(
+    size = 1.5,
+    alpha = 0.8
+  ) +
+  labs(
+    title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
+    subtitle = "Death rate per 100,000 population, by country and year.",
+    x = "Year",
+    y = "Death Rate (per 100,000)",
+    colour = "Country"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    legend.direction = "horizontal",
+    legend.text = element_text(size = 7),
+    legend.title = element_text(size = 8, face = "bold"),
+    legend.key.size = unit(0.3, "lines"),
+    legend.box.margin = margin(t = -15, r = 0, b = 0, l = 0),
+    legend.box.spacing = unit(0.1, "cm"),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    panel.grid.minor = element_blank()
+  ) +
+  guides(colour = guide_legend(ncol = 8))
+
+print(alzheimer_plot)
+```
