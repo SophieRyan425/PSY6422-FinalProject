@@ -107,14 +107,60 @@ view(europe_alzheimers_deaths)
 
 ```
 
-#### Data visualisation 1 
+#### Data visualisation 1
 
 ```{r}
-ggplot(europe_alzheimers_deaths, aes(x = Year, y = DeathRate, colour = Country, group = Country)) +
-  geom_line() +
-  labs (title = "Alzeimers deaths by European country from 2000-2021",
+#Creating simple line graph 
+ggplot(europe_alzheimers_deaths, aes(x = Year, y = DeathRate, colour = Country, group = Country)) + 
+  #Adding x and y axis and grouping data points by country
+ 
+   geom_line() + #adding the line
+ 
+   labs (title = "Alzeimers deaths by European country from 2000-2021",
   x = "Year",
   y = "Number of Deaths",
   colour = "Country") +
-  theme_minimal()
+  #adding title and labels for axis and assigning a different colour for each country 
+ 
+   theme_minimal()
+```
+
+This was just a basic line graph for me to get an idea on how i can work with the data i have and what sort of graph i could create. This one is very simple and i don't like the proportions and it does not look that great so i am going to try and advance this visualisation into something clearer and more precise.
+
+```{r}
+alzheimer_plot<- ggplot(
+  data = europe_alzheimers_deaths,
+  aes(
+    x = Year,
+    y = DeathRate,
+    group = Country,
+    colour = Country 
+  )
+) +
+  geom_line(
+    linewidth = 0.8,
+    alpha = 0.8 
+  ) +
+  geom_point(
+    size = 1.5,
+    alpha = 0.8
+  ) +
+  labs(
+    title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
+    subtitle = "Death rate per 100,000 population, by country and year.",
+    x = "Year",
+    y = "Death Rate (per 100,000)",
+    colour = "Country"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    legend.position = "right",
+    panel.grid.minor = element_blank()
+  ) 
+
+
+print(alzheimer_plot)
 ```
