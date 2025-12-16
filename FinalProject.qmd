@@ -210,3 +210,17 @@ alzheimer_plot<- ggplot(
 
 print(alzheimer_plot)
 ```
+
+```{r}
+alzheimers_heatmap<- europe_alzheimers_deaths %>%
+  mutate(Country = fct_reorder(Country, DeathRate, .fun = 'mean')) %>%
+  ggplot(mapping = aes(x = Year, y = Country, fill = DeathRate)) +
+  geom_tile() +
+  scale_fill_viridis_c(option = "turbo") +
+  labs(title = "Heatmap of Death Rates from Alzeimers and other dementias across Europe",
+       subtitle = "Countries orders by mean death rate",
+       x = "Year", y = "Country", fill = "Death Rate") +
+  theme(axis.text.y = element_text(size = 6))
+
+alzheimers_heatmap
+```
