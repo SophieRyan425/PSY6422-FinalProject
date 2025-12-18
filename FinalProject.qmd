@@ -22,7 +22,7 @@ My visualisation will focus on answering whether there has been an increase in d
 
 ## The Project
 
-#### Data Preparation:
+### Data Preparation:
 
 Before starting any data preparation the packages needing to be installed and loaded are:
 
@@ -58,12 +58,11 @@ df<-read.csv("death-rate-from-alzheimers-other-dementias-ghe.csv")
 Showing the first 10 rows of the raw data.
 
 ```{r}
-#| include: FALSE
 head(df,10)
 
 ```
 
-#### Data Cleaning
+### Data Cleaning
 
 The current raw data includes death rates from Alzheimer's and other dementia's across every country in the world. I want to focus just on countries in Europe. Therefore I am going to remove the rows that are irrelevant to my analysis and save a new data set with just the death rates from Alzheimer's and other dementia's across Europe from 2000-2021.
 
@@ -122,7 +121,7 @@ view(europe_alzheimers_deaths)
 
 ```
 
-#### Data visualisation 1
+### Data visualisation 1
 
 ```{r}
 #Creating a simple line graph to see how my data might be visualised
@@ -190,7 +189,7 @@ alzheimer_plot<- ggplot( #assigning the plot a name
 print(alzheimer_plot) #showing the graph 
 ```
 
-This graph is better in terms of visual appearance and labels and includes much more detail, but the legend is too big and the graph is squished, the colours are too similar and theres just too much going on on the graph to read the data clearly, so its still unclear.
+This graph is better in terms of visual appearance and labels and includes much more detail, but the legend is too big and the graph is squished, the colours are too similar and theres just too much going on in the graph to read the data clearly, so its still unclear.
 
 ```{r}
 
@@ -201,53 +200,74 @@ alzheimer_plot<- ggplot(data = europe_alzheimers_deaths, #calling the data
     y = DeathRate,
     group = Country,
     colour = Country,
-    #adding x and y axis, grouping by country and making each country a different colour 
+    #adding x and y axis, grouping by country and making each country a different colour, I couldn't find a colour palette that covers enough colours to assign a different clear colour to each coutry better than the default  
 )) +
+  
   geom_line(
-    linewidth = 0.8,
+    linewidth = 0.4,
     alpha = 0.8 
   ) +
   geom_point(
-    size = 1.5,
+    size = 1.0,
     alpha = 0.8
-  ) +
-  facet_wrap( ~ Country, ncol = 8) +
+  ) + #assigning line and point width and transparency
+  
   labs(
     title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
     subtitle = "Death rate per 100,000 population, by country and year.",
     x = "Year",
     y = "Death Rate (per 100,000)",
     colour = "Country"
-  ) +
+  ) + #labelling titles and axis 
+  
   theme_minimal() +
+  
   theme(
-    legend.position = "bottom",
+    legend.position = "bottom", #changing legend position to underneath the graph to make the graph less squashed 
     legend.direction = "horizontal",
-    legend.text = element_text(size = 7),
-    legend.title = element_text(size = 8, face = "bold"),
-    legend.key.size = unit(0.3, "lines"),
-    legend.box.margin = margin(t = -15, r = 0, b = 0, l = 0),
-    legend.box.spacing = unit(0.1, "cm"),
+    legend.text = element_text(size = 7), #assigning text size inside the legend
+    legend.title = element_text(size = 8, face = "bold"), #assigning title text size
+    legend.key.size = unit(0.3, "lines"), #making the key size smaller
+    legend.box.margin = margin(t = -15, r = 0, b = 0, l = 0), #decreasing amount of empty space around the legend 
+    legend.box.spacing = unit(0.5, "cm"), #changing space between the legend and the graph
     plot.title = element_text(size = 16, face = "bold"),
     plot.subtitle = element_text(size = 12),
     axis.title = element_text(size = 12),
-    panel.grid.minor = element_blank()
-  ) +
-  guides(colour = guide_legend(ncol = 8))
+    panel.grid.minor = element_blank() 
+  ) + #assigning text size for labels and titles and removing minor grid lines
+  
+  guides(colour = guide_legend(ncol = 8)) #organising legend into 8 columns to make it as small in height as possible 
 
 print(alzheimer_plot)
 ```
 
-```{r}
-alzheimers_heatmap<- europe_alzheimers_deaths %>%
-  mutate(Country = fct_reorder(Country, DeathRate, .fun = 'mean')) %>%
-  ggplot(mapping = aes(x = Year, y = Country, fill = DeathRate)) +
-  geom_tile() +
-  scale_fill_viridis_c(option = "turbo") +
-  labs(title = "Heatmap of Death Rates from Alzeimers and other dementias across Europe",
-       subtitle = "Countries orders by mean death rate",
-       x = "Year", y = "Country", fill = "Death Rate") +
-  theme(axis.text.y = element_text(size = 6))
+After experimenting with the line graphs, i decided this data is too dense and although this final visualisation is better for readability i think it is still quite unclear and the data is all squashed together at the bottom, with similar colours, making them difficult to read and distinguish between. Therefore I decided to create a heat map which is better for dense data sets to see if this would be a better visualisation.
 
-alzheimers_heatmap
+### Data visualisation 2 
+
+```{r}
+alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
+  
+  mutate(Country = fct_reorder(Country, DeathRate, .fun = 'mean')) %>% #reordering data by each countries mean death rate to make the visualisation clearer with the changes in colour
+  
+  ggplot(mapping = aes(x = Year, y = Country, fill = DeathRate)) + #adding x and y axis and what the data is being grouped by
+  
+  geom_tile() +
+  
+  scale_fill_viridis_c(option = "turbo") + #adding colour palette 
+  
+  labs(title = "Heatmap of Death Rates from Alzeimers and other dementias across Europe 2000-2021",
+       subtitle = "Countries ordered by mean death rate per 100,000",
+       x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
+  
+  theme_minimal() +
+  
+  theme(
+    plot.title = element_text(size= 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    axis.text.y = element_text(size = 6)) 
+#adjusting size and look of text and labels on the graph 
+
+alzheimers_heatmap #viewing the heatmap
 ```
