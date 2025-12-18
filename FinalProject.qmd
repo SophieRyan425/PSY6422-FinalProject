@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-# Death rates from Alzheimer's disease and other forms of dementia's across Europe from 2000-2021.
+# Death rates from Alzheimer's disease and other forms of dementia across Europe from 2000-2021.
 
 #### Sophie Ryan
 
@@ -12,19 +12,27 @@ editor: visual
 
 ## Background and Data Origins
 
-As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from alzeimers disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzeimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, combining men and women.
+As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, combining men and women.
 
 A link to the data set can be accessed [Here](https://ourworldindata.org/grapher/death-rate-from-alzheimers-other-dementias-ghe?tab=table)
 
 My visualisation will focus on answering whether there has been an increase in deaths from Alzheimer’s disease and other dementia's across Europe from the year 2000-2021 and whether one specific country has a higher death rate than others due these neurodegenerative diseases.
 
-> **Research Question:** *"How have death rates from Alzeimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"*
+> **Research Question:** *"How have death rates from Alzheimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"*
 
 ## The Project
 
 #### Data Preparation:
 
-Before starting any data preparation the packages needing to be installed and loaded are `tidyverse` and `here`
+Before starting any data preparation the packages needing to be installed and loaded are:
+
+`tidyverse`
+
+`here`
+
+`dplyr`
+
+`ggplot2`
 
 ```{r}
 #| include: FALSE
@@ -57,10 +65,10 @@ head(df,10)
 
 #### Data Cleaning
 
-The current raw data includes death rates from Alzheimers and other dementia's across every country in the world. I want to focus just on countries in Europe. Therefore I am going to remove the rows that are irrelevant to my analysis and save a new data set with just the death rates from Alzheimer's and other dementia's across Europe from 2000-2021.
+The current raw data includes death rates from Alzheimer's and other dementia's across every country in the world. I want to focus just on countries in Europe. Therefore I am going to remove the rows that are irrelevant to my analysis and save a new data set with just the death rates from Alzheimer's and other dementia's across Europe from 2000-2021.
 
 ```{r}
-#1. Define a vector of European countries to give me something to reduce my raw data based upon 
+#1. Define a vector of European countries to give me something to reduce my raw data based upon, this was quite tedious but i couldnt find a better way of doing this with such a large data set
 
 european_countries<- c(
   "Albania", "Andorra", "Armenia", "Austria", "Azerbaijan", 
@@ -73,36 +81,43 @@ european_countries<- c(
 
 
 #2. Filter the data frame 
-#Use the command filter to keep all rows where the value in the "Entity" column is also present in the 'european_countries' vector that was created
+#Use the function 'filter' to keep all rows where the value in the "Entity" column is also present in the 'european_countries' vector that was created
 
 europe_alzheimers_df<-df %>%
   filter(Entity %in% european_countries)
 
 
-#3. Displaying first few rows of the new data frame 
+#3. Displaying first few rows of the new data frame to check it has removed the relevant data 
 
 print(head(europe_alzheimers_df))
 
 
-#4. Counting the number of rows in the original date frame and the new data frame to check that the intended rows were removed 
+#4. Counting the number of rows in the original data frame and the new data frame to check that the intended rows were removed 
 
 print(paste("Original rows:", nrow(df)))
 print(paste("European rows:", nrow(europe_alzheimers_df)))
 
 
 #5. Saving the new data set with just European countries in it 
+
 write.csv(europe_alzheimers_df, "european_alzeimers_deaths.csv", row.names = FALSE)
 
 
-#6 Viewing the new clean data set 
+#6 Viewing the new clean data set in a table format
+
 view(europe_alzheimers_df)
 
 #7 Renaming columns 
-europe_alzheimers_deaths<- europe_alzheimers_df %>%
-  rename(Country = Entity,
+
+europe_alzheimers_deaths<- europe_alzheimers_df %>% #creating final data set
+  
+  rename(Country = Entity, #renaming the original column name as 'Country'
+         
          DeathRate = Death.rate.from.alzheimer.disease.and.other.dementias.among.both.sexes)
 
+
 #8 Viewing final clean data set 
+
 view(europe_alzheimers_deaths)
 
 ```
@@ -110,8 +125,11 @@ view(europe_alzheimers_deaths)
 #### Data visualisation 1
 
 ```{r}
-#Creating simple line graph 
-ggplot(europe_alzheimers_deaths, aes(x = Year, y = DeathRate, colour = Country, group = Country)) + 
+#Creating a simple line graph to see how my data might be visualised
+
+ggplot( 
+  europe_alzheimers_deaths, 
+  aes(x = Year, y = DeathRate, colour = Country, group = Country)) + 
   #Adding x and y axis and grouping data points by country
  
    geom_line() + #adding the line
@@ -120,63 +138,71 @@ ggplot(europe_alzheimers_deaths, aes(x = Year, y = DeathRate, colour = Country, 
   x = "Year",
   y = "Number of Deaths",
   colour = "Country") +
-  #adding title and labels for axis and assigning a different colour for each country 
+  #adding title and labels for x and y axis and assigning a different colour for each country 
  
    theme_minimal()
 ```
 
-This was just a basic line graph for me to get an idea on how i can work with the data i have and what sort of graph i could create. This one is very simple and i don't like the proportions and it does not look that great so i am going to try and advance this visualisation into something clearer and more precise.
+This was just a basic line graph for me to get an idea on how i can work with the data i have and what sort of graph i could create. This one is very simple and i don't like the proportions and it does not look that great in terms of positioning, colour and just general visability so i am going to try and advance this visualisation into something clearer and more precise.
 
 ```{r}
-alzheimer_plot<- ggplot(
-  data = europe_alzheimers_deaths,
-  aes(
+alzheimer_plot<- ggplot( #assigning the plot a name
+  
+  data = europe_alzheimers_deaths, #calling the data
+ 
+   aes(
     x = Year,
     y = DeathRate,
     group = Country,
     colour = Country 
-  )
+  ) #adding x and y axis and grouping values by country and assigning a default colour palette giving a different colour for each country
 ) +
+  
   geom_line(
-    linewidth = 0.8,
-    alpha = 0.8 
+    linewidth = 0.8, #setting thickness of lines
+    alpha = 0.8 #controlling transparency of the lines 
   ) +
-  geom_point(
+  
+  geom_point( #adds data points across the lines
     size = 1.5,
     alpha = 0.8
   ) +
+  
   labs(
     title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
     subtitle = "Death rate per 100,000 population, by country and year.",
     x = "Year",
     y = "Death Rate (per 100,000)",
     colour = "Country"
-  ) +
+  ) + #labelling the graph
+  
   theme_minimal() +
+  
   theme(
-    plot.title = element_text(size = 16, face = "bold"),
-    plot.subtitle = element_text(size = 12),
-    axis.title = element_text(size = 12),
-    legend.position = "right",
-    panel.grid.minor = element_blank()
+    plot.title = element_text(size = 16, face = "bold"), #changing size of title and making it bold
+    plot.subtitle = element_text(size = 12), #assinging text size to the subtitle 
+    axis.title = element_text(size = 12), #assigning text size for the axis label
+    legend.position = "right", #making the position of the legend on the right of the graph
+    panel.grid.minor = element_blank() #hiding minor grid lines
   ) 
 
 
-print(alzheimer_plot)
+print(alzheimer_plot) #showing the graph 
 ```
 
-This graph is better in terms of visual appearance and labels and includes much more detail, but the legend is too big and the graph is squished so its still unclear.
+This graph is better in terms of visual appearance and labels and includes much more detail, but the legend is too big and the graph is squished, the colours are too similar and theres just too much going on on the graph to read the data clearly, so its still unclear.
 
 ```{r}
-alzheimer_plot<- ggplot(
-  data = europe_alzheimers_deaths,
+
+alzheimer_plot<- ggplot(data = europe_alzheimers_deaths, #calling the data
+  
   aes(
     x = Year,
     y = DeathRate,
     group = Country,
-    colour = Country 
-  )
-) +
+    colour = Country,
+    #adding x and y axis, grouping by country and making each country a different colour 
+)) +
   geom_line(
     linewidth = 0.8,
     alpha = 0.8 
@@ -185,6 +211,7 @@ alzheimer_plot<- ggplot(
     size = 1.5,
     alpha = 0.8
   ) +
+  facet_wrap( ~ Country, ncol = 8) +
   labs(
     title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
     subtitle = "Death rate per 100,000 population, by country and year.",
