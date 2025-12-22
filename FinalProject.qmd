@@ -34,12 +34,15 @@ Before starting any data preparation the packages needing to be installed and lo
 
 `ggplot2`
 
+`plotly`
+
 ```{r}
 #| include: FALSE
 library(here)
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+library(plotly)
 ```
 
 Loading in the raw data set before I can begin cleaning and organising.
@@ -121,7 +124,7 @@ view(europe_alzheimers_deaths)
 
 ```
 
-### Data visualisation 1
+### Data Visualisation 1
 
 ```{r}
 #Creating a simple line graph to see how my data might be visualised
@@ -243,7 +246,7 @@ print(alzheimer_plot)
 
 After experimenting with the line graphs, I decided this data is too dense and although this final visualisation is better for readability i think it is still quite unclear and the data is all squashed together at the bottom, with similar colours, making them difficult to read and distinguish between. Therefore I decided to create a heat map which is better for dense data sets to see if this would be a better visualisation.
 
-### Data visualisation 2 
+### Data Visualisation 2 
 
 ```{r}
 alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
@@ -257,7 +260,7 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   scale_fill_viridis_c(option = "turbo") + #adding colour palette 
   
   labs(title = "Heatmap of Death Rates from Alzeimers and 
-       other dementias across Europe 2000-2021",
+   other dementias across Europe 2000-2021",
        subtitle = "Countries ordered by mean death rate per 100,000",
        x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
   
@@ -271,4 +274,40 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
 #adjusting size and look of text and labels on the graph 
 
 alzheimers_heatmap #viewing the heatmap
+```
+
+I think this heat-map is a great way to view the type of dense data that I chose. From this you can clearly see each country name separately and each colour is clear making the graph easy to read, including a clear colour legend. This also highlights very well the much higher death rates in Monaco and the drastic increase in the death rates in this country from 2010 - 2020. Additionally, we can see how death rates have increased over the years as the colours become lighter approaching 2020, with the highest death rate countries grouped at the top. This is a much better way to visualise this data and make it easier to read whilst also being pleasing to look at.
+
+Lastly to complete my final visualisation i want to make this graph interactive.
+
+### Final Visualisation 
+
+```{r}
+alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
+  
+  mutate(Country = fct_reorder(Country, DeathRate, .fun = 'mean')) %>% #reordering data by each countries' mean death rate to make the visualisation clearer with the changes in colour
+  
+  ggplot(mapping = aes(x = Year, y = Country, fill = DeathRate)) + #adding x and y axis and what the data is being grouped by
+  
+  geom_tile() +
+  
+  scale_fill_viridis_c(option = "turbo") + #adding colour palette 
+  
+  labs(title = "Heatmap of Death Rates from Alzeimers and 
+   other dementias across Europe 2000-2021",
+       subtitle = "Countries ordered by mean death rate per 100,000",
+       x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
+  
+  theme_minimal() +
+  
+  theme(
+    plot.title = element_text(size= 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    axis.text.y = element_text(size = 6)) 
+#adjusting size and look of text and labels on the graph 
+
+
+#Making it interactive 
+ggplotly(alzheimers_heatmap)
 ```
