@@ -246,7 +246,7 @@ print(alzheimer_plot)
 
 After experimenting with the line graphs, I decided this data is too dense and although this final visualisation is better for readability i think it is still quite unclear and the data is all squashed together at the bottom, with similar colours, making them difficult to read and distinguish between. Therefore I decided to create a heat map which is better for dense data sets to see if this would be a better visualisation.
 
-### Data Visualisation 2 
+### Data Visualisation 2
 
 ```{r}
 alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
@@ -280,7 +280,7 @@ I think this heat-map is a great way to view the type of dense data that I chose
 
 Lastly to complete my final visualisation i want to make this graph interactive.
 
-### Final Visualisation 
+### Final Visualisation
 
 ```{r}
 alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
