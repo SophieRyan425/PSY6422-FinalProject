@@ -12,7 +12,7 @@ editor: visual
 
 ## Background and Data Origins
 
-As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, combining men and women.
+As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from Alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, combining men and women.
 
 A link to the data set can be accessed [Here](https://ourworldindata.org/grapher/death-rate-from-alzheimers-other-dementias-ghe?tab=table)
 
@@ -108,7 +108,7 @@ view(europe_alzheimers_df)
 
 #7 Renaming columns 
 
-europe_alzheimers_deaths<- europe_alzheimers_df %>% #creating final data set
+europe_alzheimers_deaths<- europe_alzheimers_df %>% #creating final data set vector
   
   rename(Country = Entity, #renaming the original column name as 'Country'
          
@@ -142,7 +142,7 @@ ggplot(
    theme_minimal()
 ```
 
-This was just a basic line graph for me to get an idea on how i can work with the data i have and what sort of graph i could create. This one is very simple and i don't like the proportions and it does not look that great in terms of positioning, colour and just general visability so i am going to try and advance this visualisation into something clearer and more precise.
+This was just a basic line graph for me to get an idea on how I can work with the data I have and what sort of graph I could create. This one is very simple and I don't like the proportions and it does not look that great in terms of positioning, colour and just general visability so I am going to try and advance this visualisation into something clearer and more precise.
 
 ```{r}
 alzheimer_plot<- ggplot( #assigning the plot a name
@@ -179,8 +179,8 @@ alzheimer_plot<- ggplot( #assigning the plot a name
   
   theme(
     plot.title = element_text(size = 16, face = "bold"), #changing size of title and making it bold
-    plot.subtitle = element_text(size = 12), #assinging text size to the subtitle 
-    axis.title = element_text(size = 12), #assigning text size for the axis label
+    plot.subtitle = element_text(size = 12), #assigning text size to the subtitle 
+    axis.title = element_text(size = 12), #assigning text size for the axis labels
     legend.position = "right", #making the position of the legend on the right of the graph
     panel.grid.minor = element_blank() #hiding minor grid lines
   ) 
@@ -189,7 +189,7 @@ alzheimer_plot<- ggplot( #assigning the plot a name
 print(alzheimer_plot) #showing the graph 
 ```
 
-This graph is better in terms of visual appearance and labels and includes much more detail, but the legend is too big and the graph is squished, the colours are too similar and theres just too much going on in the graph to read the data clearly, so its still unclear.
+This graph is better in terms of visual appearance, labels and detail, but the legend is too big and the graph is squashed. The colours of the lines and points are too similar and there's just too much going on in the graph to read the data clearly, so its still unclear.
 
 ```{r}
 
@@ -200,7 +200,7 @@ alzheimer_plot<- ggplot(data = europe_alzheimers_deaths, #calling the data
     y = DeathRate,
     group = Country,
     colour = Country,
-    #adding x and y axis, grouping by country and making each country a different colour, I couldn't find a colour palette that covers enough colours to assign a different clear colour to each coutry better than the default  
+    #adding x and y axis, grouping by country and making each country a different colour, I couldn't find a colour palette that covers enough colours to assign a different clear colour to each country better than the default - this is an issue with this type of graph i started to realise 
 )) +
   
   geom_line(
@@ -241,14 +241,14 @@ alzheimer_plot<- ggplot(data = europe_alzheimers_deaths, #calling the data
 print(alzheimer_plot)
 ```
 
-After experimenting with the line graphs, i decided this data is too dense and although this final visualisation is better for readability i think it is still quite unclear and the data is all squashed together at the bottom, with similar colours, making them difficult to read and distinguish between. Therefore I decided to create a heat map which is better for dense data sets to see if this would be a better visualisation.
+After experimenting with the line graphs, I decided this data is too dense and although this final visualisation is better for readability i think it is still quite unclear and the data is all squashed together at the bottom, with similar colours, making them difficult to read and distinguish between. Therefore I decided to create a heat map which is better for dense data sets to see if this would be a better visualisation.
 
 ### Data visualisation 2 
 
 ```{r}
 alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   
-  mutate(Country = fct_reorder(Country, DeathRate, .fun = 'mean')) %>% #reordering data by each countries mean death rate to make the visualisation clearer with the changes in colour
+  mutate(Country = fct_reorder(Country, DeathRate, .fun = 'mean')) %>% #reordering data by each countries' mean death rate to make the visualisation clearer with the changes in colour
   
   ggplot(mapping = aes(x = Year, y = Country, fill = DeathRate)) + #adding x and y axis and what the data is being grouped by
   
@@ -256,7 +256,8 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   
   scale_fill_viridis_c(option = "turbo") + #adding colour palette 
   
-  labs(title = "Heatmap of Death Rates from Alzeimers and other dementias across Europe 2000-2021",
+  labs(title = "Heatmap of Death Rates from Alzeimers and 
+       other dementias across Europe 2000-2021",
        subtitle = "Countries ordered by mean death rate per 100,000",
        x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
   
