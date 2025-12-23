@@ -78,7 +78,7 @@ european_countries<- c(
 
 
 #2. Filter the data frame 
-#Use the function 'filter' to keep all rows where the value in the "Entity" column is also present in the 'european_countries' vector that was created
+#Using the function 'filter' to keep all rows where the country in the "Entity" column is also present in the 'european_countries' vector that was created
 
 europe_alzheimers_df<-df %>%
   filter(Entity %in% european_countries)
@@ -104,11 +104,11 @@ write.csv(europe_alzheimers_df, "european_alzeimers_deaths.csv", row.names = FAL
 
 view(europe_alzheimers_df)
 
-#7 Renaming columns 
+#7 Renaming the column for countries  
 
 europe_alzheimers_deaths<- europe_alzheimers_df %>% #creating final data set vector
   
-  rename(Country = Entity, #renaming the original column name as 'Country'
+  rename(Country = Entity, #renaming the original column name ('Entity') as 'Country'
          
          DeathRate = Death.rate.from.alzheimer.disease.and.other.dementias.among.both.sexes)
 
@@ -121,17 +121,17 @@ view(europe_alzheimers_deaths)
 
 ### Data Visualisation 1
 
-```{r}
-#Creating a simple line graph to see how my data might be visualised
+Firstly I experimented with line graphs to see how my data could be visualised.
 
+```{r}
 ggplot( 
-  europe_alzheimers_deaths, 
+  europe_alzheimers_deaths, #calling the data set
   aes(x = Year, y = DeathRate, colour = Country, group = Country)) + 
   #Adding x and y axis and grouping data points by country
  
-   geom_line() + #adding the line
+   geom_line() + #adding the lines
  
-   labs (title = "Alzeimers deaths by European country from 2000-2021",
+   labs (title = "Alzheimers deaths by European country from 2000-2021",
   x = "Year",
   y = "Number of Deaths",
   colour = "Country") +
@@ -166,7 +166,7 @@ alzheimer_plot<- ggplot( #assigning the plot a name
   ) +
   
   labs(
-    title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
+    title = "Alzheimer's and Dementia Death Rates in European Countries Over Time",
     subtitle = "Death rate per 100,000 population, by country and year.",
     x = "Year",
     y = "Death Rate (per 100,000)",
@@ -177,7 +177,7 @@ alzheimer_plot<- ggplot( #assigning the plot a name
   
   theme(
     plot.title = element_text(size = 16, face = "bold"), #changing size of title and making it bold
-    plot.subtitle = element_text(size = 12), #assigning text size to the subtitle 
+    plot.subtitle = element_text(size = 12), #changing size of subtitle text
     axis.title = element_text(size = 12), #assigning text size for the axis labels
     legend.position = "right", #making the position of the legend on the right of the graph
     panel.grid.minor = element_blank() #hiding minor grid lines
@@ -198,7 +198,7 @@ alzheimer_plot<- ggplot(data = europe_alzheimers_deaths, #calling the data
     y = DeathRate,
     group = Country,
     colour = Country,
-    #adding x and y axis, grouping by country and making each country a different colour, I couldn't find a colour palette that covers enough colours to assign a different clear colour to each country better than the default - this is an issue with this type of graph i started to realise 
+    #adding x and y axis, grouping by country and making each country a different colour, I couldn't find a colour palette that covers enough colours to assign a different clear colour to each country better than the default - this is an issue with this type of graph I started to realise 
 )) +
   
   geom_line(
@@ -211,7 +211,7 @@ alzheimer_plot<- ggplot(data = europe_alzheimers_deaths, #calling the data
   ) + #assigning line and point width and transparency
   
   labs(
-    title = "Alheimer's and Dementia Death Rates in European Countries Over Time",
+    title = "Alzheimer's and Dementia Death Rates in European Countries Over Time",
     subtitle = "Death rate per 100,000 population, by country and year.",
     x = "Year",
     y = "Death Rate (per 100,000)",
@@ -254,7 +254,7 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   
   scale_fill_viridis_c(option = "turbo") + #adding colour palette 
   
-  labs(title = "Heatmap of Death Rates from Alzeimers and 
+  labs(title = "Heatmap of Death Rates from Alzheimers and 
    other dementias across Europe 2000-2021",
        subtitle = "Countries ordered by mean death rate per 100,000",
        x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
@@ -273,7 +273,7 @@ alzheimers_heatmap #viewing the heatmap
 
 I think this heat-map is a great way to view the type of dense data that I chose. From this you can clearly see each country name separately and each colour is clear making the graph easy to read, including a clear colour legend. This also highlights very well the much higher death rates in Monaco and the drastic increase in the death rates in this country from 2010 - 2020. Additionally, we can see how death rates have increased over the years as the colours become lighter approaching 2020, with the highest death rate countries grouped at the top. This is a much better way to visualise this data and make it easier to read whilst also being pleasing to look at.
 
-Lastly to complete my final visualisation i want to make this graph interactive.
+Lastly to complete my final visualisation I want to make this graph interactive.
 
 ### Final Visualisation
 
@@ -288,29 +288,25 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   
   scale_fill_viridis_c(option = "turbo") + #adding colour palette 
   
-  labs(title = "Heatmap of Death Rates from Alzeimers and 
-other dementias across Europe 2000-2021",
+  labs(title = "Heatmap of Death Rates from Alzheimer's and 
+other dementia's across Europe 2000-2021",
        subtitle = "Countries ordered by mean death rate per 100,000",
-       x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
+       x = "Year", y = "Country", fill = "Death Rate") + #labelling title, axis and legend
   
   theme_minimal() +
   
   theme(
     plot.title = element_text(
-      size= 14, 
-      face = "bold",
+      size= 14, #size of title 
+      face = "bold", #making the title bold 
       margin = margin(b = 20), #adding 20 points of space below the title
-      hjust = 0.5), #Centering title 
+      hjust = 0.5), #centering title 
     plot.subtitle = element_text(
-      size = 10,
-      hjust = 0.5),
+      size = 10, #size of the subtitle 
+      hjust = 0.5), #centering the subtitle
     axis.title = element_text(size = 12),
     axis.text.y = element_text(size = 6)) 
-#adjusting size and look of text and labels on the graph 
-
-
-alzheimers_heatmap
-
+#adjusting size and look of labels on the graph 
 
 interactive_alzheimers_heatmap<- ggplotly(alzheimers_heatmap) #converting plot to plotly
 
@@ -318,8 +314,8 @@ interactive_alzheimers_heatmap <- interactive_alzheimers_heatmap %>%
   layout(
     title = list(
       text = paste0(
-       "<b><span style = 'font-size:16px'>Heatmap of Death Rates from Alzeimers and other dementias across Europe 2000-2021</span></b><br>",
-      "<b><span style='font-size:12px'>Countries ordered by mean death rate per 100,000</span></b>"), #manually adding the subtitle back into the graph as when i did it before it removed the subtitle 
+       "<b><span style = 'font-size:16px'>Heatmap of Death Rates from Alzheimer's and other dementia's across Europe 2000-2021</span></b><br>",
+      "<b><span style='font-size:12px'>Countries ordered by mean death rate per 100,000</span></b>"), #manually adding the title and subtitle back into the graph as when I did it before it removed the subtitle and adjusting sizes of the text 
       y = 0.95, #moving title slightly down
       x = 0.5, #centering horizontally 
       xanchor = 'centre',
