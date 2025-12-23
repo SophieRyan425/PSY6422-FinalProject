@@ -301,7 +301,11 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   theme_minimal() +
   
   theme(
-    plot.title = element_text(size= 16, face = "bold"),
+    plot.title = element_text(
+      size= 14, 
+      face = "bold",
+      margin = margin(b = 20), #adding 20 points of space below the title
+      hjust = 0.5), #Centering title 
     plot.subtitle = element_text(size = 12),
     axis.title = element_text(size = 12),
     axis.text.y = element_text(size = 6)) 
