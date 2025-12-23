@@ -12,11 +12,11 @@ editor: visual
 
 ## Background and Data Origins
 
-As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from Alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, combining men and women.
+As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from Alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, both men and women.
 
 A link to the data set can be accessed [Here](https://ourworldindata.org/grapher/death-rate-from-alzheimers-other-dementias-ghe?tab=table)
 
-My visualisation will focus on answering whether there has been an increase in deaths from Alzheimer’s disease and other dementia's across Europe from the year 2000-2021 and whether one specific country has a higher death rate than others due these neurodegenerative diseases.
+My visualisation will focus on answering whether there has been an increase in deaths from Alzheimer’s disease and other dementia's across Europe from the year 2000-2021 and whether one specific country has a higher death rate than others due to these neurodegenerative diseases.
 
 > **Research Question:** *"How have death rates from Alzheimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"*
 
@@ -56,13 +56,8 @@ read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
 #Reading dataset into a dataframe
 df<-read.csv("death-rate-from-alzheimers-other-dementias-ghe.csv")
 
-```
-
-Showing the first 10 rows of the raw data.
-
-```{r}
-head(df,10)
-
+#Showing first 10 rows of the raw data 
+head(df,10) 
 ```
 
 ### Data Cleaning
@@ -294,7 +289,7 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
   scale_fill_viridis_c(option = "turbo") + #adding colour palette 
   
   labs(title = "Heatmap of Death Rates from Alzeimers and 
-   other dementias across Europe 2000-2021",
+other dementias across Europe 2000-2021",
        subtitle = "Countries ordered by mean death rate per 100,000",
        x = "Year", y = "Country", fill = "Death Rate") + #labelling title and axis and legend
   
@@ -306,12 +301,32 @@ alzheimers_heatmap<- europe_alzheimers_deaths %>% #naming the graph
       face = "bold",
       margin = margin(b = 20), #adding 20 points of space below the title
       hjust = 0.5), #Centering title 
-    plot.subtitle = element_text(size = 12),
+    plot.subtitle = element_text(
+      size = 10,
+      hjust = 0.5),
     axis.title = element_text(size = 12),
     axis.text.y = element_text(size = 6)) 
 #adjusting size and look of text and labels on the graph 
 
 
-#Making it interactive 
-ggplotly(alzheimers_heatmap)
+alzheimers_heatmap
+
+
+interactive_alzheimers_heatmap<- ggplotly(alzheimers_heatmap) #converting plot to plotly
+
+interactive_alzheimers_heatmap <- interactive_alzheimers_heatmap %>% 
+  layout(
+    title = list(
+      text = paste0(
+       "<b><span style = 'font-size:16px'>Heatmap of Death Rates from Alzeimers and other dementias across Europe 2000-2021</span></b><br>",
+      "<b><span style='font-size:12px'>Countries ordered by mean death rate per 100,000</span></b>"), #manually adding the subtitle back into the graph as when i did it before it removed the subtitle 
+      y = 0.95, #moving title slightly down
+      x = 0.5, #centering horizontally 
+      xanchor = 'centre',
+      yanchor = 'top',
+      pad = list(b = 15)), #adding padding below the text
+      margin = list(t = 50)) #increasing top margin to prevent overlapping of the plot 
+
+
+interactive_alzheimers_heatmap
 ```
