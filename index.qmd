@@ -4,10 +4,10 @@ format: html
 editor: visual
 ---
 
-# Death rates from Alzeimer's disease and other forms of dementia's across Europe from 2000-2021
+# Death rates from Alzheimer's disease and other forms of dementia's across Europe from 2000-2021
 
 ## Overview
 
-The primary inspiration for this project was to understand how neurodegenerative disorders are affecting the human population and if they are increasing or decreasing in prevalence. Upon further research into available databases this was narrowed down to the specific issue of Alzeimer's disease. Upon finding a specific data set on deaths as a result from this disease i came to the conclusion of answering the following question "How have death rates from Alzeimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"
+The primary inspiration for this project was to understand how neurodegenerative disorders are affecting the human population and if they are increasing or decreasing in prevalence. Upon further research into available databases this was narrowed down to the specific issue of Alzheimer's disease. Upon finding a specific data set on deaths as a result from this disease I came to the conclusion of answering the following question "How have death rates from Alzheimer's disease and other forms of dementia's changed over time and how has this differed across countries in Europe?"
 
-click [here](FinalProject.html) to access my final project
+Click [here](FinalProject.html) to access my final project
