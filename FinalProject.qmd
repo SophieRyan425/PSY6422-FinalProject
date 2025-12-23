@@ -56,6 +56,9 @@ read_csv(here("death-rate-from-alzheimers-other-dementias-ghe.csv"))
 #Reading dataset into a dataframe
 df<-read.csv("death-rate-from-alzheimers-other-dementias-ghe.csv")
 
+```
+
+```{r}
 #Showing first 10 rows of the raw data 
 head(df,10) 
 ```
