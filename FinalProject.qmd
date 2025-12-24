@@ -329,3 +329,7 @@ interactive_alzheimers_heatmap <- interactive_alzheimers_heatmap %>%
 
 interactive_alzheimers_heatmap
 ```
+
+## Summary 
+
+My final visualisation shows the death rates from Alzheimer's disease and other dementia's across countries in Europe from the year 2000 - 2021, in a way that it can clearly be seen what countries have the highest death rates and how countries death rates have increased over the years, which answers my research question I set out to address. From this project, I have learnt how to handle large data sets which was intimidating before starting this project. I have also learnt to work around errors in code and try out different methods to do what I want it to do. During the visualisation creation, I was able to experiment with different functions and different types of plots and also making my final visualisation interactive, after having no prior experience in coding.
