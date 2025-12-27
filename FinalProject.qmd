@@ -12,7 +12,7 @@ editor: visual
 
 ## Background and Data Origins
 
-As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from Alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, both men and women.
+As a postgraduate Masters student studying cognitive neuroscience and human neuroimaging I am interested in the impact of neurodegenerative diseases on health and populations. This inspired me to create a visualisation looking at how deaths from Alzheimer's disease and other forms of dementia are increasing or decreasing and how this specifically is impacting health and therefore death rates. The raw data set was obtained from Our World Data website which provided an estimate of the annual number of deaths from Alzheimer's disease and other forms of dementia per 100,000 people from 2000 to 2021 globally, both men and women. This was based on Data from the World Health Organisation (2024) that was then processed by Our World Data to provide the data set used in this project.
 
 A link to the data set can be accessed [Here](https://ourworldindata.org/grapher/death-rate-from-alzheimers-other-dementias-ghe?tab=table)
 
